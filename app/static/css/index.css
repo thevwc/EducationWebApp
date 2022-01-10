@@ -1,0 +1,160 @@
+:root {
+    --main-bg-color: navy;
+    --main-txt-color: white;  
+    --main-padding: 10px;  
+    --main-body-bg-color: lightgray;
+  }
+                         
+/* Phone layout (default) */
+@media only screen and (max-width: 600px) {
+    body {
+        background-color: var(--main-body-bg-color);
+    }
+}
+    .parent {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:"hdgArea" 
+                            "versionArea"
+                            "selectMemberArea"
+                            "contactInfoArea";
+        grid-gap:0em;
+        border-color: black; 
+        background-color: lightgray;               
+    }
+    .heading {
+        grid-area: hdgArea;
+        display:grid;
+        padding-top: 0px;
+        padding-bottom:0px;
+        text-align: center;
+        background-color:navy;
+        color: var(--main-txt-color);
+        border-bottom:white 3px;
+    }
+
+    .version {
+        grid-area:versionArea;
+        font-size:.75rem;
+        padding-top:3px;
+        align-items: center;
+        text-align: center;
+        background-color: navy;
+        color:white;
+    }
+    .selectMember {
+        text-align: center;
+        align-content: center;
+        justify-content: center;
+        padding-top:0px;
+        padding-bottom:0px;
+    }
+    .contactInfo {
+        margin-top:20px;
+        background-color:lightgray;
+        padding-right:20px;
+    }
+    .contactLabel {
+        display:inline-block;
+        width:150px;
+        text-align:right;
+        background-color: lightgray;
+        color:black;
+    }
+    .contactData {
+        background-color:lightgray;
+        color:blue;
+    }
+.modal-dialog {
+    width:900px;
+    height:600px !important;
+}
+.modal-content {
+    height:100%;
+    background-color:#BBD6EC;
+}
+.modal-body {
+    overflow: scroll;
+}
+
+/* iPad portrait */
+@media (min-width: 768px) {
+    .parent {
+        width:80%;
+        display: grid;
+        grid-template-columns:1fr 1fr;
+        grid-template-areas: "hdgArea versionArea"
+                             "selectMemberArea selectMemberArea"
+                             "contactInfoArea contactInfoArea";  
+        gap:0px;
+        margin:auto; 
+        margin-top: 100px;
+        
+    }
+    
+}
+
+/* Laptop to monitor size */
+@media (min-width: 992px) {
+    .parent {
+        width:90%;
+        display: grid;
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:1fr auto;
+        grid-template-areas:    "hdgArea versionArea"
+                                "selectMemberArea contactInfoArea";
+        gap:0px;
+        background-color:lightgray;
+        top:0; bottom:0; left:0; right:0;
+    }
+    .heading {
+        grid-area: hdgArea;
+        padding-top: 0px;
+        padding-bottom:0px;
+        padding-left:10px;
+        text-align: left;
+        background-color:navy;
+        color: var(--main-txt-color);
+        border-bottom:white 3px;
+    }
+
+    .version {
+        grid-area:versionArea;
+        font-size:.75rem;
+        padding-top:3px;
+        padding-right:10px;
+        align-items: center;
+        text-align: right;
+        background-color: navy;
+        color:white;
+    }
+    .selectMember {
+        text-align: center;
+        height: 60px;
+        align-content: center;
+        justify-content: center;
+        padding-top:20px;
+        padding-bottom:0px;
+        color:white;
+        background-color: lightgray;
+        margin-top:0px;
+        margin-bottom:00px;
+    }
+    .contactInfo {
+        border-color: blue;
+        border-radius: 10%;
+        background-color: white;
+    }
+    .contactLabel {
+        display:inline-block;
+        width:150px;
+        text-align:right;
+        background-color: lightgray;
+        color:black;
+    }
+    .contactData {
+        background-color:lightgray;
+        color:blue;
+    }
+}

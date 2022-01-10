@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block app_content %}
+
+<div class="parent">
+    <!-- HEADING SECTION -->
+    <div class="heading">
+        <h2>Flask Template Heading</h2>
+    </div>
+
+    <!-- VERSION SECTION -->
+    <div class="version">
+        <h3>ver. Jan 9, 2022</h3>
+    </div>  
+        
+    <!-- SELECT MEMBER SECTION -->
+    <div class="selectMember">
+        <div>
+            <select id="selectpicker" class='selectpicker' style='margin-bottom:20px' title='Find a member ...' data-live-search=true data-live-search-style="contains" data-width='auto'>
+            {% for n in nameDict %}
+                <option 
+                    class="optName" 
+                    value="{{n.memberName}}" 
+                    data-member="{{n.memberID}}"
+                </option>{{n.memberName}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div class="contactInfo">
+        <div class="row">
+            <label class="col contactLabel">Name</label>
+            <span id="memberName" class="col contactData">
+        </div>
+        <div class="row">
+           <label class="col contactLabel">Village ID</label>
+            <span id="villageID" class="col contactData">
+        </div>
+        <div class="row">
+            <label class="col contactLabel">Home phone</label>
+            <span id="homePhone" class="col contactData" >
+        </div>
+        <div class="row">
+            <label class="col contactLabel">Mobile phone</label>
+            <span id="mobilePhone" class="col contactData">
+        </div>
+        <div class="row">
+            <label class="col contactLabel">Email</label>
+            <span id="eMail" class="col contactData">
+        </div>
+    </div>
+    
+</div>  <!-- END OF PARENT WRAPPER -->
+
+
+<!-- Modal for error messages. -->
+<div class="modal fade" id="myModalMsg" tabindex="-1" role="dialog" aria-   labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalTitle"></h5>
+				<button type="button" class="close" onclick=closeModal() aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id=modalBody style=width:fit-content>
+			</div>
+			
+				<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick=closeModal() data-dismiss="modal">CLOSE</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{super()}}
+    <script src="{{ url_for('static', filename='js/index.js') }}"> </script>
+{% endblock %}

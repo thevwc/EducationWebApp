@@ -4,6 +4,21 @@ python3 -m venv venv
 # activate the venv
 source venv/bin/activate
 
+eval "$(homebrew/bin/brew shellenv)"
+brew update --force --quiet
+chmod -R go-w "$(brew --prefix)/share/zsh"
+brew install unixodbc
+xcode-select --install
+
 # pip install all python dependencies
 pip install -r requirements.txt
+
+# Got an error about not finding sql.h during pip install. 
+# unixodbc is installed locally, so set LDFLAGS and CPPFLAFS to local install
+brew reinstall unixodbc
+export LDFLAGS="-L/Users/davidneiss/test/homebrew/Cellar/unixodbc/2.3.9_1/lib"
+export CPPFLAGS="-I/Users/davidneiss/test/homebrew/Cellar/unixodbc/2.3.9_1/include"
+pip install pyodbc
+
+
 

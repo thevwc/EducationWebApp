@@ -1,3 +1,5 @@
+#make sure that the .flaskenv file is populated, like the baseline project
+
 # start the virtual env
 python3 -m venv venv
 
@@ -19,6 +21,7 @@ brew reinstall unixodbc
 export LDFLAGS="-L/Users/davidneiss/test/homebrew/Cellar/unixodbc/2.3.9_1/lib"
 export CPPFLAGS="-I/Users/davidneiss/test/homebrew/Cellar/unixodbc/2.3.9_1/include"
 pip install pyodbc
+
 
 
 

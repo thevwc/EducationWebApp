@@ -15,13 +15,33 @@ xcode-select --install
 # pip install all python dependencies
 pip install -r requirements.txt
 
+# FOR M1 MAC, DO THE FOLLOWING:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"\n
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release\n
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/davidneiss/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release\n
+brew update
+HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=Y brew install msodbcsql17 mssql-tools\n
+
+https://whodeenie.medium.com/installing-pyodbc-and-unixodbc-for-apple-silicon-8e238ed7f216
+
+
+
 # Got an error about not finding sql.h during pip install. 
 # unixodbc is installed locally, so set LDFLAGS and CPPFLAFS to local install
+# (from within venv)
 brew reinstall unixodbc
 export LDFLAGS="-L/Users/davidneiss/test/homebrew/Cellar/unixodbc/2.3.9_1/lib"
 export CPPFLAGS="-I/Users/davidneiss/test/homebrew/Cellar/unixodbc/2.3.9_1/include"
 pip install pyodbc
 
 
+
+# Nighmare debugging OpenSSL now. Could not connect to database. Some kind of 
+# problem with OpenSSL lib versions on my mac. Had to do the following:
+brew uninstall openssl
+brew update && brew upgrade && brew cleanup && brew doctor
+brew install openssl
 
 

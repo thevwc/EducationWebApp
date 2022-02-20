@@ -29,7 +29,7 @@ import requests
 @app.route('/index/')
 @app.route('/index', methods=['GET'])
 def index():
-    return("Hello world, vwc-education")
+    #return("Hello world, vwc-education")
 
     # BUILD ARRAY OF NAMES FOR DROPDOWN LIST OF MEMBERS
     nameDict=[]

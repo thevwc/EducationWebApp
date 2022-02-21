@@ -36,6 +36,7 @@ function getContactInfo() {
                 modalAlert('ERROR',data.msg)
                 return
             }
+            //console.log(data);
             // Populate form
             document.getElementById('memberName').innerHTML = data.memberName
             document.getElementById('villageID').innerHTML = data.memberID

@@ -58,6 +58,13 @@ def index():
     return render_template("index.html",nameDict=nameDict)
    
 
+
+def dump(obj):
+   for attr in dir(obj):
+       if hasattr( obj, attr ):
+           print( "obj.%s = %s" % (attr, getattr(obj, attr)))
+
+
 # DISPLAY MEMBER CONTACT INFO
 @app.route("/getMemberContactInfo",methods=['POST'])
 def getMemberContactInfo():
@@ -69,9 +76,9 @@ def getMemberContactInfo():
     if member == None:
         msg = "ERROR - Member not found"
         return jsonify(msg=msg)
-    
+    # dump(member)
     memberName = member.First_Name + ' ' + member.Last_Name
     if member.Nickname != '' and member.Nickname != None:
         memberName = member.First_Name + ' (' + member.Nickname + ') ' + member.Last_Name
-    return jsonify(eMail=member.eMail,memberName=memberName,memberID=member.Member_ID,lightspeedID=member.LightspeedID, homePhone=member.Home_Phone,cellPhone=member.Cell_Phone)
+    return jsonify(mobilePhone=member.Cell_Phone,eMail=member.eMail,memberName=memberName,memberID=member.Member_ID,lightspeedID=member.LightspeedID, homePhone=member.Home_Phone,cellPhone=member.Cell_Phone)
     

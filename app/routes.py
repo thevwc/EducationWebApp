@@ -7,7 +7,7 @@ import pdfkit
 from flask_bootstrap import Bootstrap
 from werkzeug.urls import url_parse
 from app.models import ShopName, Member, MemberActivity, MonitorSchedule, MonitorScheduleTransaction,\
-MonitorWeekNote, CoordinatorsSchedule, ControlVariables, DuesPaidYears, Contact
+MonitorWeekNote, CoordinatorsSchedule, ControlVariables, DuesPaidYears, Contact, GetMemberRecord, GetMemberList
 from app import app
 from app import db
 from sqlalchemy import func, case, desc, extract, select, update, text
@@ -20,49 +20,41 @@ from datetime import date, datetime, timedelta
 import os.path
 from os import path
 
-
 from flask_mail import Mail, Message
 mail=Mail(app)
 import requests
+
+
+# Dump a Python object's members, for debug
+def dump(obj):
+   for attr in dir(obj):
+       if hasattr( obj, attr ):
+           print( "obj.%s = %s" % (attr, getattr(obj, attr)))
+
 
 @app.route('/')
 @app.route('/index/')
 @app.route('/index', methods=['GET'])
 def index():
-    #return("Hello world, vwc-education")
 
-    # BUILD ARRAY OF NAMES FOR DROPDOWN LIST OF MEMBERS
-    nameDict=[]
-    nameItems=[]
-    sqlSelect = "SELECT Last_Name, First_Name, Nickname, Member_ID FROM tblMember_Data "
-    sqlSelect += "ORDER BY Last_Name, First_Name "
+    # Create a list of member names
+    memberNames = []
 
-    nameList = db.engine.execute(sqlSelect)
-    position = 0
-    for n in nameList:
-        position += 1
+    for n in GetMemberList():
+        lastFirst = ''
         if n.Last_Name != None and n.First_Name != None:
-            lastFirst = n.Last_Name + ', ' + n.First_Name + ' (' + n.Member_ID + ')'
+            lastFirst = n.Last_Name + ', ' + n.First_Name 
             if (n.Nickname != None and n.Nickname != ''):
                 lastFirst += ' (' + n.Nickname + ')'
-        else:
-            lastFirst = ''
+        lastFirst += ' [' + n.Member_ID + ']'
+            
+        memberNames.append( {'memberID':n.Member_ID, 'memberName':lastFirst} )
 
-        nameItems = {
-            'memberName':lastFirst,
-            'memberID':n.Member_ID
-        }
-        
-        nameDict.append(nameItems)
-
-    return render_template("index.html",nameDict=nameDict)
+    return render_template("index.html", nameList=memberNames)
    
 
 
-def dump(obj):
-   for attr in dir(obj):
-       if hasattr( obj, attr ):
-           print( "obj.%s = %s" % (attr, getattr(obj, attr)))
+
 
 
 # DISPLAY MEMBER CONTACT INFO
@@ -71,8 +63,8 @@ def getMemberContactInfo():
     req = request.get_json()
     memberID = req["villageID"]
 
-    # GET MEMBER NAME
-    member = db.session.query(Member).filter(Member.Member_ID== memberID).first()
+    member = GetMemberRecord(memberID)
+
     if member == None:
         msg = "ERROR - Member not found"
         return jsonify(msg=msg)

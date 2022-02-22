@@ -10,6 +10,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 
 from app import app
 
+
 class ControlVariables(db.Model):
     __tablename__ = 'tblControl_Variables'
     __table_args__ = {"schema": "dbo"}
@@ -291,3 +292,15 @@ class KeysTable(db.Model):
     DateAssigned = db.Column(db.Date)
     MemberID = db.Column(db.String(6))
     Reason = db.Column(db.String(45))
+
+
+def GetMemberRecord(memberID):
+    # TBD add error detection
+    return db.session.query(Member).filter(Member.Member_ID == memberID).first()
+
+
+def GetMemberList():
+    sqlSelect = "SELECT Last_Name, First_Name, Nickname, Member_ID FROM tblMember_Data ORDER BY Last_Name, First_Name"
+    # TBD add error detection
+    memberList = db.engine.execute(sqlSelect)
+    return memberList

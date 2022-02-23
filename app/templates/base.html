@@ -4,8 +4,12 @@
     {{super()}}
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">   -->
 {% endblock %}
-{% block title %}Flask Template{% endblock title %}
+
+{% block title %}VWC Education{% endblock title %}
+
 {% block content %}
+
+
 <div class="container p-0 m-0">
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}

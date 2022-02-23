@@ -33,8 +33,7 @@ def dump(obj):
 
 
 @app.route('/')
-@app.route('/index/')
-@app.route('/index', methods=['GET'])
+@app.route('/index')
 def index():
 
     # Create a list of member names
@@ -54,11 +53,8 @@ def index():
    
 
 
-
-
-
 # DISPLAY MEMBER CONTACT INFO
-@app.route("/getMemberContactInfo",methods=['POST'])
+@app.route("/getMemberContactInfo", methods=['POST'])
 def getMemberContactInfo():
     req = request.get_json()
     memberID = req["villageID"]

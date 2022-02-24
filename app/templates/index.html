@@ -24,12 +24,10 @@
         <div class="col-md-6 selectMember">
             <div>
                 <select id="selectpicker" class='selectpicker' style='margin-bottom:20px' title='Find a member ...' data-live-search=true data-live-search-style="contains" data-width='auto'>
-                {% for n in nameList %}
-                    <option 
-                        class="optName" 
-                        value="{{n.memberName}}" 
-                        data-member="{{n.memberID}}"
-                    </option>{{n.memberName}}</option>
+                {% for n in memberList %}
+                    <option class="optName" value='{{n.first}}' data-member="{{n.id}}">
+                        {{n.first}} {{n.last}} {% if n.nick is not none %} ({{n.nick}}) {% endif %} {{n.id}}
+                    </option>
                 {% endfor %}
                 </select>
             </div> 

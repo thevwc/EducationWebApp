@@ -25,6 +25,8 @@ mail=Mail(app)
 import requests
 
 
+
+
 # Dump a Python object's members, for debug
 def dump(obj):
    for attr in dir(obj):
@@ -35,22 +37,9 @@ def dump(obj):
 @app.route('/')
 @app.route('/index')
 def index():
-
-    # Create a list of member names
-    memberNames = []
-
-    for n in GetMemberList():
-        lastFirst = ''
-        if n.Last_Name != None and n.First_Name != None:
-            lastFirst = n.Last_Name + ', ' + n.First_Name 
-            if (n.Nickname != None and n.Nickname != ''):
-                lastFirst += ' (' + n.Nickname + ')'
-        lastFirst += ' [' + n.Member_ID + ']'
-            
-        memberNames.append( {'memberID':n.Member_ID, 'memberName':lastFirst} )
-
-    return render_template("index.html", nameList=memberNames)
-   
+    memberList = [ {"id":n.Member_ID, "first":n.First_Name, "last":n.Last_Name, "nick":n.Nickname} for n in GetMemberList()]
+    print(memberList)
+    return render_template("index.html", memberList=memberList)
 
 
 # DISPLAY MEMBER CONTACT INFO

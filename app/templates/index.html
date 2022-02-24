@@ -26,7 +26,9 @@
                 <select id="selectpicker" class='selectpicker' style='margin-bottom:20px' title='Find a member ...' data-live-search=true data-live-search-style="contains" data-width='auto'>
                 {% for n in memberList %}
                     <option class="optName" value='{{n.first}}' data-member="{{n.id}}">
-                        {{n.first}} {{n.last}} {% if n.nick is not none %} ({{n.nick}}) {% endif %} {{n.id}}
+                        {{n.first}}
+                        {% if n.nick is not none %}
+                            {% if n.nick %}({{n.nick}}) {% endif %}{% endif %}{{n.last}}, [{{n.id}}]
                     </option>
                 {% endfor %}
                 </select>

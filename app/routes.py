@@ -38,7 +38,6 @@ def dump(obj):
 @app.route('/index')
 def index():
     memberList = [ {"id":n.Member_ID, "first":n.First_Name, "last":n.Last_Name, "nick":n.Nickname} for n in GetMemberList()]
-    print(memberList)
     return render_template("index.html", memberList=memberList)
 
 

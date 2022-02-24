@@ -1,79 +1,82 @@
 {% extends 'bootstrap/base.html' %}
 
+
 {% block styles %}
     {{super()}}
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">   -->
-{% endblock %}
+{% endblock styles %}
 
-{% block title %}VWC Education{% endblock title %}
+
+{% block title %}
+VWC Education
+{% endblock title %}
+
 
 {% block content %}
-
-
-<div class="container p-0 m-0">
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-        {% if category == "" %}            
-        <div class="alert alert-success alert-dismissible col-lg-12" role="alert">
-            <span> {{ message }}</span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        {% endif %}
-        
-        {% if category == None %}            
-        <div class="alert alert-success alert-dismissible col-lg-12" role="alert">
-            <span>{{ message }}</span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        {% endif %}
-
-        {% if category == "success" %}            
-            <div class="alert alert-success alert-dismissible col-lg-12" role="alert" style="background-color:green;color:white">
+    <div class="container p-0 m-0">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+            {% if category == "" %}            
+            <div class="alert alert-success alert-dismissible col-lg-12" role="alert">
                 <span> {{ message }}</span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-        {% endif %}
-
-        {% if category == "warning" %}            
-            <div class="alert alert-warning alert-dismissible col-lg-12" role="alert" style="background-color:red;color:white">
-                <span>  {{ message }}</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endif %}
-
-        {% if category == "danger" %}            
-            <div class="alert alert-danger alert-dismissible col-lg-12" role="alert"style="background-color:red;color:white">
+            {% endif %}
+            
+            {% if category == None %}            
+            <div class="alert alert-success alert-dismissible col-lg-12" role="alert">
                 <span>{{ message }}</span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            {% endif %}
+
+            {% if category == "success" %}            
+                <div class="alert alert-success alert-dismissible col-lg-12" role="alert" style="background-color:green;color:white">
+                    <span> {{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+            {% if category == "warning" %}            
+                <div class="alert alert-warning alert-dismissible col-lg-12" role="alert" style="background-color:red;color:white">
+                    <span>  {{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+            {% if category == "danger" %}            
+                <div class="alert alert-danger alert-dismissible col-lg-12" role="alert"style="background-color:red;color:white">
+                    <span>{{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+            {% if category == "info" %}            
+                <div class="alert alert-info alert-dismissible col-lg-12" role="alert"style="background-color:lightblue;color:white">
+                    <span>{{ message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+        {% endfor %}
         {% endif %}
+    {% endwith %}
+    </div>
 
-        {% if category == "info" %}            
-            <div class="alert alert-info alert-dismissible col-lg-12" role="alert"style="background-color:lightblue;color:white">
-                <span>{{ message }}</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endif %}
-
-    {% endfor %}
-    {% endif %}
-{% endwith %}
-</div>
-
-{# application content needs to be provided in the app_content block #}
-{% block app_content %}{% endblock %}
-
+    {# application content needs to be provided in the app_content block #}
+    {% block app_content %}
+    {% endblock app_content%}
 {% endblock %}

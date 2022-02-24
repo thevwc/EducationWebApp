@@ -6,8 +6,7 @@ import pdfkit
 
 from flask_bootstrap import Bootstrap
 from werkzeug.urls import url_parse
-from app.models import ShopName, Member, MemberActivity, MonitorSchedule, MonitorScheduleTransaction,\
-MonitorWeekNote, CoordinatorsSchedule, ControlVariables, DuesPaidYears, Contact, GetMemberRecord, GetMemberList
+from app.models import *
 from app import app
 from app import db
 from sqlalchemy import func, case, desc, extract, select, update, text
@@ -26,12 +25,12 @@ import requests
 
 
 
-
-# Dump a Python object's members, for debug
+# Dump a Python object's non underscored members, for debug
 def dump(obj):
-   for attr in dir(obj):
-       if hasattr( obj, attr ):
-           print( "obj.%s = %s" % (attr, getattr(obj, attr)))
+    for attr in dir(obj):
+        if hasattr( obj, attr ):
+            if not attr.startswith("_"):
+                print( "obj.%s = %s" % (attr, getattr(obj, attr)))
 
 
 @app.route('/')

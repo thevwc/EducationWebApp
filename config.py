@@ -3,14 +3,18 @@
 import os
 #import pyodbc
 import urllib.parse
-
+from pathlib import Path
 from dotenv import load_dotenv
 
 # LOAD dotenv IN THE BASE DIRECTORY
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 envFileName = ".env"
-print(f"Loading env vars from {envFileName}")
+if not Path(envFileName).exists():
+   print(f"Cant load a file named {envFileName} from the current dir") #TBD dump to stderr
+   exit(-1)
+print(f"Loading env vars from a file named {envFileName}")
 load_dotenv(os.path.join(basedir, envFileName))
 
 # print (os.getenv('Driver'))

@@ -9,18 +9,7 @@ from dotenv import load_dotenv
 # LOAD dotenv IN THE BASE DIRECTORY
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-flaskEnv = os.getenv("FLASK_ENV")
-if flaskEnv == None:
-    print("ERROR, FLASK_ENV must be either 'production' or 'development'")
-    exit(-1)
-if flaskEnv.startswith(("prod","PROD")):
-        envFileName = ".env.prod"
-elif flaskEnv.startswith(("dev","DEV")):
-        envFileName = ".env.dev"
-else:
-    print("ERROR, FLASK_ENV must be either 'production' or 'development'")
-    exit(-1)
-
+envFileName = ".env"
 print(f"Loading env vars from {envFileName}")
 load_dotenv(os.path.join(basedir, envFileName))
 

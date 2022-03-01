@@ -1,27 +1,4 @@
 
-TODO:
-Add password login screen
-Change to a "hello world" and dump a database to the screen, label that as 1.0 and ask Steve to deply to test that can deploy app to servers
-Clean up old code by commenting it out
-Make sure code has unit tests
-Create coding standard and follow coding standard in code
-Implement first feature, match up people who need a mentor with mentors
-   1) create list of people who need a mentor
-   2) create list of people who are mentors
-   3) Create UI allows 1 to be matched to 2
-   4) When match is made, record such in DB
-   5) Show list of people matched to all mentors
-Clean up startup tasks list below, move them onto public wiki
-Help create script for Steve to move stuff to test server and then production
-Create a release process for my own stuff
-
-
-
-TODONE:
-
-
-
-
 #make sure that the .flaskenv file is populated, like the baseline project
 
 # start the virtual env
@@ -40,15 +17,25 @@ xcode-select --install
 pip install -r requirements.txt
 
 # FOR M1 MAC, DO THE FOLLOWING:
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"\n
-brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release\n
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/davidneiss/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
-brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release\n
+brew tap microsoft/mssql-release https://github.com/Microsoft/homebrew-mssql-release
 brew update
-HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=Y brew install msodbcsql17 mssql-tools\n
+HOMEBREW_NO_ENV_FILTERING=1 ACCEPT_EULA=Y brew install msodbcsql17 mssql-tools
 
+
+# !! THIS SEEMED TO WORK TO GET PYODBC INSTALLED !!
 https://whodeenie.medium.com/installing-pyodbc-and-unixodbc-for-apple-silicon-8e238ed7f216
+# Download the pyodbc-4.0.32.tar.gz source package from PyPI (or whatever the latest version is).
+brew install unixodbc
+pip uninstall pyodbc
+export CPPFLAGS="-I/opt/homebrew/Cellar/unixodbc/2.3.9_1/include"
+export LDFLAGS="-L/opt/homebrew/Cellar/unixodbc/2.3.9_1/lib -liodbc -liodbcinst"
+cd path/to/pyodbc-4.0.32.tar.gz
+pip install pyodbc-4.0.32.tar.gz
+
 
 
 

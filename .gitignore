@@ -1,5 +1,7 @@
-.env
+**/.env
+**/.env.dev
+**/.env.prod
 venv/*
-.DS_Store
-*/.DS_Store
+**/.DS_Store
+**/__pycache__
 

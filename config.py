@@ -17,19 +17,18 @@ if not Path(envFileName).exists():
 print(f"Loading env vars from a file named {envFileName}")
 load_dotenv(os.path.join(basedir, envFileName))
 
-# print (os.getenv('Driver'))
-# print (os.getenv('Server'))
-# print (os.getenv('Database'))
-# print (os.getenv('Username'))
-# print (os.getenv('Password'))
+driver     = os.getenv('Driver',     "No Driver env var found")
+server     = os.getenv('Server',     "No server env var found")
+database   = os.getenv('Database',   "No Database env var found")
+dbUserName = os.getenv('DBUsername', "No DBUserName env var found")
+dbPassword = os.getenv('DBPassword', "No DBPassword env var found")
 
-params = urllib.parse.quote_plus('DRIVER=' +  os.getenv('Driver') + ';'
-                                    'SERVER=' + os.getenv('Server') + ';'
-                                    'DATABASE=' + os.getenv('Database') + ';'
-                                    'UID=' + os.getenv('Username') + ';'
-                                    'PWD=' + os.getenv('Password') + ';'
-)
-conn_str = 'mssql+pyodbc:///?odbc_connect={}'.format(params)
+params = urllib.parse.quote_plus('DRIVER='   + driver     + ';'
+                                 'SERVER='   + server     + ';'
+                                 'DATABASE=' + database   + ';'
+                                 'UID='      + dbUserName + ';'
+                                 'PWD='      + dbPassword + ';')
+conn_str = f"mssql+pyodbc:///?odbc_connect={params}"
 
 class Config(object):
     SECRET_KEY = os.environ.get('Secret_key') or 'juniorbr549wells'

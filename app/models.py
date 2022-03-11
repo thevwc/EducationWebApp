@@ -1,5 +1,6 @@
 # models.py 
 
+import logging
 import subprocess
 from datetime import datetime 
 from time import time
@@ -12,13 +13,30 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from app import app
 
 def GetAppVersion():
-    r = subprocess.check_output("git log -n1 --pretty=format:%h%d", shell=True)
-    tags = []
+    """
+    Queries git for HEAD tags. If HEAD is not tagged, returns it's SHA
+
+    If HEAD is not tagged, returns {"version" : "{HEAD_SHA}"}
+    IF HEAD is     tagged, returns list of tags {"version" : ["tag1", ...]}
+
+    """
+    try:
+        r = subprocess.check_output("git log -n1 --pretty=format:%h%d HEAD", shell=True)
+    except subprocess.CalledProcessError as ret:
+        logging.error("gitlog failed")
+        return {"version":"unknown"}
     fields = [f.decode("utf-8") for f in r.split()]
+    if len(fields) == 0:
+        logging.error("no text to parse from gitlog")
+        return {"version":"unknown"}
+
+    # TODO: The follow code is fragile, if the format of the output changes
     sha = fields[0]
+    tags = []
     for v,i in enumerate(fields):
-        if i.startswith("tag:"):
-            tags.append(fields[v+1].rstrip(","))
+        if "tag:" in i:
+            tags.append(fields[v+1].rstrip(",").rstrip(")"))
+
     if len(tags) == 0:
         return {"version":sha}
     else:

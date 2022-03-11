@@ -1,5 +1,6 @@
 # models.py 
 
+import subprocess
 from datetime import datetime 
 from time import time
 from app import db
@@ -9,6 +10,19 @@ from sqlalchemy.orm import column_property, relationship
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from app import app
+
+def GetAppVersion():
+    r = subprocess.check_output("git log -n1 --pretty=format:%h%d", shell=True)
+    tags = []
+    fields = [f.decode("utf-8") for f in r.split()]
+    sha = fields[0]
+    for v,i in enumerate(fields):
+        if i.startswith("tag:"):
+            tags.append(fields[v+1].rstrip(","))
+    if len(tags) == 0:
+        return {"version":sha}
+    else:
+        return {"version":tags}
 
 
 class ControlVariables(db.Model):

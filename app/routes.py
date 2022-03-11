@@ -40,6 +40,12 @@ def index():
     return render_template("index.html", memberList=memberList)
 
 
+@app.route("/getWebAppVersion", methods=["GET"])
+def getWebAppVersion():
+    appVersionInfo = GetAppVersion()
+    return jsonify(appVersionInfo)
+
+
 # DISPLAY MEMBER CONTACT INFO
 @app.route("/getMemberContactInfo", methods=['POST'])
 def getMemberContactInfo():

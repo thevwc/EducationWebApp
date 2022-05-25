@@ -40,10 +40,10 @@ def index():
     return render_template("index.html", memberList=memberList)
 
 
-@app.route("/getWebAppVersion", methods=["GET"])
-def getWebAppVersion():
-    appVersionInfo = GetAppVersion()
-    return jsonify(appVersionInfo)
+@app.route("/v1/webAppVersion", methods=["GET"])
+def webAppVersion():
+    # No need to jsonify a dict as Flask does that for us
+    return GetAppVersion()
 
 
 # DISPLAY MEMBER CONTACT INFO
@@ -62,4 +62,4 @@ def getMemberContactInfo():
     if member.Nickname != '' and member.Nickname != None:
         memberName = member.First_Name + ' (' + member.Nickname + ') ' + member.Last_Name
     return jsonify(mobilePhone=member.Cell_Phone,eMail=member.eMail,memberName=memberName,memberID=member.Member_ID,lightspeedID=member.LightspeedID, homePhone=member.Home_Phone,cellPhone=member.Cell_Phone)
-    
+

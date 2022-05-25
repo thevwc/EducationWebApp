@@ -1,8 +1,8 @@
-# models.py 
+# models.py
 
 import logging
 import subprocess
-from datetime import datetime 
+from datetime import datetime
 from time import time
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,26 +21,19 @@ def GetAppVersion():
 
     """
     try:
-        r = subprocess.check_output("git log -n1 --pretty=format:%h%d HEAD", shell=True)
+        r = subprocess.check_output("git describe --tags", shell=True)
     except subprocess.CalledProcessError as ret:
-        logging.error("gitlog failed")
+        logging.error("git describe failed")
         return {"version":"unknown"}
+
     fields = [f.decode("utf-8") for f in r.split()]
     if len(fields) == 0:
-        logging.error("no text to parse from gitlog")
-        return {"version":"unknown"}
-
-    # TODO: The follow code is fragile, if the format of the output changes
-    sha = fields[0]
-    tags = []
-    for v,i in enumerate(fields):
-        if "tag:" in i:
-            tags.append(fields[v+1].rstrip(",").rstrip(")"))
-
-    if len(tags) == 0:
-        return {"version":sha}
+        logging.error("no text to parse from git describe")
+        ver = "unknown"
     else:
-        return {"version":tags}
+        # TODO: The follow code is fragile, if the format of the output changes
+        ver = fields[0]
+    return {"version" : ver}
 
 
 class ControlVariables(db.Model):
@@ -123,7 +116,7 @@ class Member(db.Model):
     Alt_Zip = db.Column(db.String(10))
     Alt_Country = db.Column(db.String(30))
     Alt_Phone = db.Column(db.String(14))
-    
+
     Emerg_Name = db.Column(db.String(30))
     Emerg_Phone = db.Column(db.String(14))
     Emerg_Pacemaker = db.Column(db.Boolean)
@@ -145,13 +138,13 @@ class Member(db.Model):
     Skill_Level = db.Column(db.Integer)
     Monitor_Duty_Waiver_Reason = db.Column(db.String(50))
     Monitor_Duty_Waiver_Expiration_Date = db.Column(db.Date)
-    
+
     Temporary_Village_ID = db.Column(db.Boolean)
     Temporary_ID_Expiration_Date = db.Column(db.Date)
     Last_Monitor_Training_Shop_2 = db.Column(db.Date)
     Monitor_Sub = db.Column(db.Boolean)
     Monitor_Sub_2 = db.Column(db.Boolean)
-    
+
     isAskMe = db.Column(db.Boolean)
     Mentor = db.Column(db.Boolean)
     isBODmember = db.Column(db.Boolean)
@@ -173,8 +166,8 @@ class Member(db.Model):
     # Relationships
     #activities = db.relationship('MemberActivity', backref='member')
     def wholeName(self):
-        return self.lastName + ", " + self.firstName 
-  
+        return self.lastName + ", " + self.firstName
+
 class ShopName(db.Model):
     __tablename__ = 'tblShop_Names'
     __table_args__ = {"schema": "dbo"}
@@ -217,7 +210,7 @@ class MonitorScheduleTransaction(db.Model):
     Date_Scheduled = db.Column(db.DateTime)
     AM_PM = db.Column(db.String(2))
     Duty = db.Column(db.String(20))
-    
+
 class MonitorWeekNote(db.Model):
     __tablename__ = 'monitorWeekNotes'
     __table_args__ = {"schema":"dbo"}

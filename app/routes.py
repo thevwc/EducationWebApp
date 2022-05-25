@@ -24,7 +24,7 @@ mail=Mail(app)
 import requests
 
 
-CodeVersion = GetAppVersion()
+CodeVersion = GetAppVersion().get("version","UNKNOWN VERSION")
 
 
 # Dump a Python object's non underscored members, for debug

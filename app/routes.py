@@ -24,6 +24,8 @@ mail=Mail(app)
 import requests
 
 
+CodeVersion = GetAppVersion()
+
 
 # Dump a Python object's non underscored members, for debug
 def dump(obj):
@@ -37,13 +39,13 @@ def dump(obj):
 @app.route('/index')
 def index():
     memberList = [ {"id":n.Member_ID, "first":n.First_Name, "last":n.Last_Name, "nick":n.Nickname} for n in GetMemberList()]
-    return render_template("index.html", memberList=memberList)
+    return render_template("index.html", memberList=memberList, version=CodeVersion)
 
 
 @app.route("/v1/webAppVersion", methods=["GET"])
 def webAppVersion():
     # No need to jsonify a dict as Flask does that for us
-    return GetAppVersion()
+    return CodeVersion
 
 
 # DISPLAY MEMBER CONTACT INFO

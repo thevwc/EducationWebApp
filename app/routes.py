@@ -44,7 +44,6 @@ def index():
 
 @app.route("/v1/webAppVersion", methods=["GET"])
 def webAppVersion():
-    # No need to jsonify a dict as Flask does that for us
     return CodeVersion
 
 

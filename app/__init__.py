@@ -24,7 +24,7 @@ def InitLogging():
     logger.setLevel(logging.DEBUG)
 
     formatString = "%(asctime)s %(module)-4s %(levelname)-7s %(message)s"
-    LoggerFileHandler = logging.FileHandler(LOG_FILE)
+    LoggerFileHandler = logging.FileHandler(LOG_FILE, 'a')
     LoggerFileHandler.setFormatter(logging.Formatter(formatString, "%Y-%m-%d %H:%M:%S"))
     logger.addHandler(LoggerFileHandler)
 

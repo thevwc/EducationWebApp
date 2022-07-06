@@ -325,7 +325,16 @@ def GetMemberRecord(memberID):
 
 
 def GetMemberList():
-    sqlSelect = "SELECT Last_Name, First_Name, Nickname, Member_ID FROM tblMember_Data ORDER BY Last_Name, First_Name"
-    # TBD add error detection
-    memberList = db.engine.execute(sqlSelect)
+    logging.debug("GetMemberList entry")
+
+    try:
+        sqlSelect = "SELECT Last_Name, First_Name, Nickname, Member_ID FROM tblMember_Data ORDER BY Last_Name, First_Name"
+        # TBD add error detection
+        memberList = db.engine.execute(sqlSelect)
+    except e:
+        logging.debug(f"Exception {e} thrown")
+        raise e
+
+    logging.debug("GetMemberList exit")
+
     return memberList
